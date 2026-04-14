@@ -7,12 +7,45 @@ BASE_URL="${BASE_URL:-https://huggingface.co/Wan-AI/Wan2.2-TI2V-5B/resolve/main}
 
 mkdir -p "$MODEL_ROOT/google/umt5-xxl"
 
+remote_size() {
+  local relative_path="$1"
+  curl -sIL "$BASE_URL/$relative_path" | awk 'tolower($1)=="content-length:" {gsub("\r","",$2); print $2}' | tail -1
+}
+
 download() {
   local relative_path="$1"
   local destination="$MODEL_ROOT/$relative_path"
+  local remote_bytes
+  local local_bytes
+  local status=0
+
   mkdir -p "$(dirname "$destination")"
+
+  remote_bytes="$(remote_size "$relative_path")"
+  local_bytes=0
+  if [[ -f "$destination" ]]; then
+    local_bytes="$(wc -c < "$destination" | tr -d ' ')"
+  fi
+
+  if [[ -n "$remote_bytes" && "$remote_bytes" =~ ^[0-9]+$ && "$local_bytes" -ge "$remote_bytes" && "$remote_bytes" -gt 0 ]]; then
+    echo "Skipping $relative_path (already downloaded)"
+    return 0
+  fi
+
   echo "Downloading $relative_path"
-  curl -L --fail -C - "$BASE_URL/$relative_path" -o "$destination"
+  curl -L --fail -C - "$BASE_URL/$relative_path" -o "$destination" || status=$?
+
+  if [[ "$status" -ne 0 ]]; then
+    local_bytes=0
+    if [[ -f "$destination" ]]; then
+      local_bytes="$(wc -c < "$destination" | tr -d ' ')"
+    fi
+    if [[ "$status" -eq 22 && -n "$remote_bytes" && "$remote_bytes" =~ ^[0-9]+$ && "$local_bytes" -ge "$remote_bytes" && "$remote_bytes" -gt 0 ]]; then
+      echo "Skipping $relative_path (already downloaded)"
+      return 0
+    fi
+    return "$status"
+  fi
 }
 
 download "Wan2.2_VAE.pth"
