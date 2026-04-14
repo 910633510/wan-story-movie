@@ -3,8 +3,9 @@ set -euo pipefail
 
 PROJECT_ROOT="${PROJECT_ROOT:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)}"
 WAN_REPO_DIR="${WAN_REPO_DIR:-$PROJECT_ROOT/vendor/Wan2.2}"
-VENV_DIR="${VENV_DIR:-$PROJECT_ROOT/.venv}"
 SLURM_FILE="${SLURM_FILE:-$PROJECT_ROOT/slurm/run_story_movie_uconn.slurm}"
+MINICONDA_DIR="${MINICONDA_DIR:-$HOME/miniconda3}"
+CONDA_ENV_NAME="${CONDA_ENV_NAME:-wanmovie}"
 PI_ACCOUNT="${PI_ACCOUNT:-}"
 SUBMIT_JOB=false
 
@@ -18,6 +19,10 @@ while [[ $# -gt 0 ]]; do
       PI_ACCOUNT="$2"
       shift 2
       ;;
+    --env-name)
+      CONDA_ENV_NAME="$2"
+      shift 2
+      ;;
     *)
       echo "Unknown argument: $1" >&2
       exit 1
@@ -25,22 +30,32 @@ while [[ $# -gt 0 ]]; do
   esac
 done
 
-if ! command -v python3 >/dev/null 2>&1; then
-  echo "python3 is required on the HPC login node." >&2
-  exit 1
+mkdir -p "$PROJECT_ROOT/vendor" "$PROJECT_ROOT/models" "$PROJECT_ROOT/logs" "$PROJECT_ROOT/outputs"
+
+if [[ ! -f "$MINICONDA_DIR/etc/profile.d/conda.sh" ]]; then
+  INSTALLER="/tmp/Miniconda3-latest-Linux-x86_64.sh"
+  if command -v curl >/dev/null 2>&1; then
+    curl -L -o "$INSTALLER" https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+  elif command -v wget >/dev/null 2>&1; then
+    wget -O "$INSTALLER" https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+  else
+    echo "Need curl or wget to install Miniconda." >&2
+    exit 1
+  fi
+  bash "$INSTALLER" -b -p "$MINICONDA_DIR"
 fi
 
-mkdir -p "$PROJECT_ROOT/vendor" "$PROJECT_ROOT/models" "$PROJECT_ROOT/logs" "$PROJECT_ROOT/outputs"
+source "$MINICONDA_DIR/etc/profile.d/conda.sh"
+
+if ! conda env list | awk '{print $1}' | grep -qx "$CONDA_ENV_NAME"; then
+  conda create -n "$CONDA_ENV_NAME" python=3.10 -y
+fi
+
+conda activate "$CONDA_ENV_NAME"
 
 if [[ ! -d "$WAN_REPO_DIR/.git" ]]; then
   git clone https://github.com/Wan-Video/Wan2.2.git "$WAN_REPO_DIR"
 fi
-
-if [[ ! -d "$VENV_DIR" ]]; then
-  python3 -m venv "$VENV_DIR"
-fi
-
-source "$VENV_DIR/bin/activate"
 
 python -m pip install --upgrade pip setuptools wheel
 python -m pip install "huggingface_hub[cli]"

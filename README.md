@@ -17,7 +17,7 @@ This is a practical open-source approximation of "extend this video" behavior, b
 - `config/story.example.json`: example multi-scene story manifest
 - `scripts/download_wan22.sh`: clones Wan2.2, creates a venv, installs dependencies, downloads the model
 - `scripts/download_ti2v_model_via_curl.sh`: downloads the TI2V model directly with resumable `curl`
-- `scripts/bootstrap_uconn_hpc.sh`: bootstraps a Python env on HPC, installs Wan deps, downloads the model, and can submit the job
+- `scripts/bootstrap_uconn_hpc.sh`: auto-installs Miniconda on HPC, creates the `wanmovie` env, installs Wan deps, downloads the model, and can submit the job
 - `scripts/story_to_movie.py`: runs a story scene-by-scene and chains clips using the last frame
 - `scripts/run_story_movie.sh`: thin wrapper around the story runner
 - `slurm/run_story_movie.slurm`: sample SLURM job for generation
@@ -199,6 +199,8 @@ If your group does not require an account line:
 ```bash
 bash -lc 'if [ -d "$HOME/wan-story-movie/.git" ]; then git -C "$HOME/wan-story-movie" pull; else git clone https://github.com/910633510/wan-story-movie.git "$HOME/wan-story-movie"; fi; cd "$HOME/wan-story-movie"; ./scripts/bootstrap_uconn_hpc.sh --submit'
 ```
+
+Those one-liners now handle Miniconda installation and creation of the `wanmovie` Python 3.10 environment automatically.
 
 ## Sources
 
