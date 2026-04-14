@@ -88,6 +88,7 @@ rm -f "$REQUIREMENTS_NO_TORCH"
 
 python -m pip install opencv-python
 python -m pip install einops
+python -m pip install decord
 "$PROJECT_ROOT/scripts/download_ti2v_model_via_curl.sh"
 
 if [[ -n "$PI_ACCOUNT" ]]; then
