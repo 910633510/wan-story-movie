@@ -6,6 +6,10 @@ WAN_REPO_DIR="${WAN_REPO_DIR:-$PROJECT_ROOT/vendor/Wan2.2}"
 SLURM_FILE="${SLURM_FILE:-$PROJECT_ROOT/slurm/run_story_movie_uconn.slurm}"
 MINICONDA_DIR="${MINICONDA_DIR:-$HOME/miniconda3}"
 CONDA_ENV_NAME="${CONDA_ENV_NAME:-wanmovie}"
+PYTORCH_INDEX_URL="${PYTORCH_INDEX_URL:-https://download.pytorch.org/whl/cu124}"
+TORCH_VERSION="${TORCH_VERSION:-2.6.0}"
+TORCHVISION_VERSION="${TORCHVISION_VERSION:-0.21.0}"
+TORCHAUDIO_VERSION="${TORCHAUDIO_VERSION:-2.6.0}"
 PI_ACCOUNT="${PI_ACCOUNT:-}"
 SUBMIT_JOB=false
 
@@ -63,13 +67,24 @@ fi
 python -m pip install --upgrade pip setuptools wheel
 python -m pip install "huggingface_hub[cli]"
 
-if ! python -m pip install -r "$WAN_REPO_DIR/requirements.txt"; then
+python -m pip uninstall -y torch torchvision torchaudio >/dev/null 2>&1 || true
+python -m pip install \
+  --index-url "$PYTORCH_INDEX_URL" \
+  "torch==$TORCH_VERSION" \
+  "torchvision==$TORCHVISION_VERSION" \
+  "torchaudio==$TORCHAUDIO_VERSION"
+
+REQUIREMENTS_NO_TORCH="$PROJECT_ROOT/.requirements-no-torch.txt"
+grep -Ev '^(torch(|vision|audio)([<>=].*)?)$' "$WAN_REPO_DIR/requirements.txt" > "$REQUIREMENTS_NO_TORCH"
+
+if ! python -m pip install -r "$REQUIREMENTS_NO_TORCH"; then
   echo "Full Wan requirements install failed. Retrying without flash_attn." >&2
   REQUIREMENTS_NO_FLASH="$PROJECT_ROOT/.requirements-no-flashattn.txt"
-  grep -v '^flash_attn$' "$WAN_REPO_DIR/requirements.txt" > "$REQUIREMENTS_NO_FLASH"
+  grep -v '^flash_attn$' "$REQUIREMENTS_NO_TORCH" > "$REQUIREMENTS_NO_FLASH"
   python -m pip install -r "$REQUIREMENTS_NO_FLASH"
   rm -f "$REQUIREMENTS_NO_FLASH"
 fi
+rm -f "$REQUIREMENTS_NO_TORCH"
 
 python -m pip install opencv-python
 "$PROJECT_ROOT/scripts/download_ti2v_model_via_curl.sh"
