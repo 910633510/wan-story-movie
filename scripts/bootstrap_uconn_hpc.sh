@@ -64,17 +64,7 @@ if [[ ! -d "$WAN_REPO_DIR/.git" ]]; then
   git clone https://github.com/Wan-Video/Wan2.2.git "$WAN_REPO_DIR"
 fi
 
-WAN_REPO_DIR_FOR_PATCH="$WAN_REPO_DIR" python - <<'PY'
-import os
-from pathlib import Path
-
-model_py = Path(os.environ["WAN_REPO_DIR_FOR_PATCH"]) / "wan" / "modules" / "model.py"
-text = model_py.read_text(encoding="utf-8")
-old = "from .attention import flash_attention"
-new = "from .attention import attention as flash_attention"
-if old in text and new not in text:
-    model_py.write_text(text.replace(old, new), encoding="utf-8")
-PY
+python "$PROJECT_ROOT/scripts/apply_wan_compat_patches.py" --wan-repo "$WAN_REPO_DIR"
 
 python -m pip install --upgrade pip setuptools wheel
 python -m pip install "huggingface_hub[cli]"
