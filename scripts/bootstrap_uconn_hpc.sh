@@ -47,6 +47,9 @@ fi
 
 source "$MINICONDA_DIR/etc/profile.d/conda.sh"
 
+conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/main >/dev/null 2>&1 || true
+conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/r >/dev/null 2>&1 || true
+
 if ! conda env list | awk '{print $1}' | grep -qx "$CONDA_ENV_NAME"; then
   conda create -n "$CONDA_ENV_NAME" python=3.10 -y
 fi
