@@ -191,13 +191,13 @@ If you just want one command to paste after logging into HPC:
 If your group requires a PI account:
 
 ```bash
-bash -lc 'if [ -d "$HOME/wan-story-movie/.git" ]; then git -C "$HOME/wan-story-movie" pull; else git clone git@github.com:910633510/wan-story-movie.git "$HOME/wan-story-movie"; fi; cd "$HOME/wan-story-movie"; PI_ACCOUNT=YOUR_PI_ACCOUNT ./scripts/bootstrap_uconn_hpc.sh --submit'
+bash -lc 'if [ -d "$HOME/wan-story-movie/.git" ]; then git -C "$HOME/wan-story-movie" pull; else git clone https://github.com/910633510/wan-story-movie.git "$HOME/wan-story-movie"; fi; cd "$HOME/wan-story-movie"; PI_ACCOUNT=YOUR_PI_ACCOUNT ./scripts/bootstrap_uconn_hpc.sh --submit'
 ```
 
 If your group does not require an account line:
 
 ```bash
-bash -lc 'if [ -d "$HOME/wan-story-movie/.git" ]; then git -C "$HOME/wan-story-movie" pull; else git clone git@github.com:910633510/wan-story-movie.git "$HOME/wan-story-movie"; fi; cd "$HOME/wan-story-movie"; ./scripts/bootstrap_uconn_hpc.sh --submit'
+bash -lc 'if [ -d "$HOME/wan-story-movie/.git" ]; then git -C "$HOME/wan-story-movie" pull; else git clone https://github.com/910633510/wan-story-movie.git "$HOME/wan-story-movie"; fi; cd "$HOME/wan-story-movie"; ./scripts/bootstrap_uconn_hpc.sh --submit'
 ```
 
 ## Sources
