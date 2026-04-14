@@ -1,0 +1,10 @@
+/.venv/
+/logs/
+/outputs/
+/models/
+/vendor/
+/storyboards/generated/
+/__pycache__/
+*.pyc
+*.tmp
+.DS_Store

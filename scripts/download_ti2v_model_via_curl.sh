@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+PROJECT_ROOT="${PROJECT_ROOT:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)}"
+MODEL_ROOT="${MODEL_ROOT:-$PROJECT_ROOT/models/Wan2.2-TI2V-5B}"
+BASE_URL="${BASE_URL:-https://huggingface.co/Wan-AI/Wan2.2-TI2V-5B/resolve/main}"
+
+mkdir -p "$MODEL_ROOT/google/umt5-xxl"
+
+download() {
+  local relative_path="$1"
+  local destination="$MODEL_ROOT/$relative_path"
+  mkdir -p "$(dirname "$destination")"
+  echo "Downloading $relative_path"
+  curl -L --fail -C - "$BASE_URL/$relative_path" -o "$destination"
+}
+
+download "Wan2.2_VAE.pth"
+download "config.json"
+download "configuration.json"
+download "diffusion_pytorch_model-00001-of-00003.safetensors"
+download "diffusion_pytorch_model-00002-of-00003.safetensors"
+download "diffusion_pytorch_model-00003-of-00003.safetensors"
+download "diffusion_pytorch_model.safetensors.index.json"
+download "models_t5_umt5-xxl-enc-bf16.pth"
+download "google/umt5-xxl/special_tokens_map.json"
+download "google/umt5-xxl/spiece.model"
+download "google/umt5-xxl/tokenizer.json"
+download "google/umt5-xxl/tokenizer_config.json"
+
+echo "Finished downloading Wan2.2-TI2V-5B into $MODEL_ROOT"

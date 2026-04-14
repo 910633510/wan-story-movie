@@ -1,0 +1,26 @@
+{
+  "movie_title": "The Lantern In The Fog",
+  "default_size": "1280*704",
+  "default_seed": 4242,
+  "default_frame_num": 121,
+  "use_prompt_extend": false,
+  "prompt_extend_method": "local_qwen",
+  "prompt_extend_model": "Qwen/Qwen2.5-7B-Instruct",
+  "scenes": [
+    {
+      "id": "scene-01",
+      "prompt": "A lone traveler in a weathered coat walks through a fog-soaked harbor at blue hour, carrying a warm brass lantern. Slow cinematic dolly shot, damp cobblestones reflecting the lantern glow, realistic lighting, subtle wind in the coat, 35mm film look.",
+      "continue_from_previous": false
+    },
+    {
+      "id": "scene-02",
+      "prompt": "Continue the same traveler from the previous shot as they reach an abandoned ferry and step onto the wooden deck. The lantern light sways with the motion, mist thickens over black water, camera tracks closer, cinematic suspense, consistent wardrobe and atmosphere.",
+      "continue_from_previous": true
+    },
+    {
+      "id": "scene-03",
+      "prompt": "Continue from the previous shot as the traveler opens the ferry cabin door and a hidden room of clocks is revealed. Floating dust, gold mechanical details, surprised expression, stronger contrast between warm lantern light and cold moonlight, high-detail cinematic reveal.",
+      "continue_from_previous": true
+    }
+  ]
+}
