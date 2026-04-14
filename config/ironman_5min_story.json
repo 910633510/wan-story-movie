@@ -1,0 +1,159 @@
+{
+  "movie_title": "Iron Man Night Flight Five Minute Cut",
+  "default_size": "1280*704",
+  "default_seed": 12000,
+  "default_frame_num": 241,
+  "use_prompt_extend": false,
+  "scenes": [
+    {
+      "id": "scene-01",
+      "prompt": "Iron Man stands on a rain-swept skyscraper at dusk overlooking Manhattan, red and gold armor reflecting distant neon lights, arc reactor glowing bright blue through mist, cinematic superhero framing, photoreal metallic texture, dramatic wind and storm atmosphere.",
+      "continue_from_previous": false
+    },
+    {
+      "id": "scene-02",
+      "prompt": "Continue from the previous shot with a close cinematic push-in on Iron Man's chest and helmet, the arc reactor pulsing brighter under falling rain, small electric flickers dancing across wet armor plates, thunderclouds rolling behind him, intense blockbuster mood.",
+      "continue_from_previous": true
+    },
+    {
+      "id": "scene-03",
+      "prompt": "Continue from the previous shot as Iron Man launches from the rooftop into the night sky, repulsors blazing beneath his hands and feet, rain scattering into glowing trails, camera tilting up with explosive upward motion, high-energy cinematic action.",
+      "continue_from_previous": true
+    },
+    {
+      "id": "scene-04",
+      "prompt": "Continue from the previous shot as Iron Man flies fast between neon-lit skyscrapers, reflections racing along the armor, camera tracking beside him through narrow city canyons, dramatic speed lines, wet glass towers, premium superhero aerial cinematography.",
+      "continue_from_previous": true
+    },
+    {
+      "id": "scene-05",
+      "prompt": "Continue from the previous shot as a glowing holographic warning interface appears around Iron Man's helmet while he flies, signaling unidentified drone activity near the river, blue HUD projections reflecting on the gold faceplate, tense cinematic suspense.",
+      "continue_from_previous": true
+    },
+    {
+      "id": "scene-06",
+      "prompt": "Continue from the previous shot as Iron Man banks sharply over the dark river, city lights reflecting in choppy water below, fog thickening across the surface, armor tilting through a dramatic turn, powerful repulsor glow cutting through the mist.",
+      "continue_from_previous": true
+    },
+    {
+      "id": "scene-07",
+      "prompt": "Continue from the previous shot as a swarm of hostile drones rises from hidden barges in the fog, red targeting lights blinking through the darkness, Iron Man hovering in front of them with clenched fists and bright reactor glow, ominous action framing.",
+      "continue_from_previous": true
+    },
+    {
+      "id": "scene-08",
+      "prompt": "Continue from the previous shot as the drones fire missiles and Iron Man dodges through explosions, sparks, smoke, and vapor trails filling the night sky, camera whipping around the armor during evasive aerial maneuvers, intense Marvel-style action spectacle.",
+      "continue_from_previous": true
+    },
+    {
+      "id": "scene-09",
+      "prompt": "Continue from the previous shot as Iron Man lands on a bridge span packed with stalled traffic and frightened civilians, rain-soaked cars flashing red brake lights, armor braced in a heroic protective stance, dramatic blue reactor light cutting through chaos.",
+      "continue_from_previous": true
+    },
+    {
+      "id": "scene-10",
+      "prompt": "Continue from the previous shot as Iron Man rises above the bridge and unleashes precise repulsor blasts at incoming drones, blue-white energy beams reflecting across wet steel cables and car windows, high-detail cinematic combat over the roadway.",
+      "continue_from_previous": true
+    },
+    {
+      "id": "scene-11",
+      "prompt": "Continue from the previous shot as a bridge section begins to collapse and Iron Man grabs a trapped family just in time, sparks and falling debris around him, emergency lights flashing through the rain, emotional heroic rescue in photoreal detail.",
+      "continue_from_previous": true
+    },
+    {
+      "id": "scene-12",
+      "prompt": "Continue from the previous shot as Iron Man studies a damaged drone fragment in midair while hovering above the bridge, a strange corporate insignia flickering on a cracked display before the machine shorts out, moody storm lighting and investigative tension.",
+      "continue_from_previous": true
+    },
+    {
+      "id": "scene-13",
+      "prompt": "Continue from the previous shot inside Stark's high-tech workshop, Iron Man armor standing under white-blue lab lights while holographic drone schematics rotate in the air, polished metal surfaces, cinematic tech noir atmosphere, focused problem-solving mood.",
+      "continue_from_previous": true
+    },
+    {
+      "id": "scene-14",
+      "prompt": "Continue from the previous shot as Tony Stark analyzes the recovered drone core on a holographic workbench, realizing it uses a stolen arc-reactor derivative, blue technical projections lighting his armor and workshop walls, tense discovery scene.",
+      "continue_from_previous": true
+    },
+    {
+      "id": "scene-15",
+      "prompt": "Continue from the previous shot as robotic workshop arms attach upgraded shoulder plates and repulsor assemblies to the Iron Man suit, sparks flickering in the lab, precision machinery moving elegantly, glossy cinematic engineering montage.",
+      "continue_from_previous": true
+    },
+    {
+      "id": "scene-16",
+      "prompt": "Continue from the previous shot as Iron Man tests the upgraded suit in the lab, brighter repulsor beams firing into reinforced targets, shockwaves rippling across the room, white-blue illumination, confident high-tech action montage style.",
+      "continue_from_previous": true
+    },
+    {
+      "id": "scene-17",
+      "prompt": "Continue from the previous shot as a holographic map reveals the enemy signal at an abandoned coastal energy plant outside the city, Iron Man turning toward the display with determined posture, cool blue tactical lighting and cinematic anticipation.",
+      "continue_from_previous": true
+    },
+    {
+      "id": "scene-18",
+      "prompt": "Continue from the previous shot as Iron Man rockets across the stormy coastline before dawn, dark ocean below, distant industrial structures ahead, camera trailing behind the armor while blue-white repulsor light glows across low clouds and sea spray.",
+      "continue_from_previous": true
+    },
+    {
+      "id": "scene-19",
+      "prompt": "Continue from the previous shot as Iron Man slips into the abandoned plant through shattered steel vents and broken concrete, dim industrial corridors, red warning lights, dust drifting in blue armor glow, stealthy infiltration with cinematic tension.",
+      "continue_from_previous": true
+    },
+    {
+      "id": "scene-20",
+      "prompt": "Continue from the previous shot as dormant assembly lines awaken around Iron Man, conveyors rattling back to life, robotic arms swinging from the shadows, orange sparks and warning sirens filling the vast chamber, suspense rising before combat.",
+      "continue_from_previous": true
+    },
+    {
+      "id": "scene-21",
+      "prompt": "Continue from the previous shot as a giant command drone emerges from the darkness, far larger than the others, armored black plating with red sensor eyes, Iron Man facing it in the center of a cavernous factory hall, epic boss-fight reveal.",
+      "continue_from_previous": true
+    },
+    {
+      "id": "scene-22",
+      "prompt": "Continue from the previous shot as the command drone opens fire and Iron Man sprints and flies through a corridor of bullets, sparks, smoke, and shattered steel panels, camera moving fast with the armor, intense blockbuster combat energy.",
+      "continue_from_previous": true
+    },
+    {
+      "id": "scene-23",
+      "prompt": "Continue from the previous shot as Iron Man is smashed through a reactor chamber wall, tumbling across metal flooring with damaged armor and fading lights, steam venting around him, the arc reactor dimming, desperate cinematic low point.",
+      "continue_from_previous": true
+    },
+    {
+      "id": "scene-24",
+      "prompt": "Continue from the previous shot as Tony reroutes power from nonessential systems to weapons, the arc reactor flaring brighter inside a battered suit, cracked armor panels glowing from within, dramatic comeback moment in blue-white industrial light.",
+      "continue_from_previous": true
+    },
+    {
+      "id": "scene-25",
+      "prompt": "Continue from the previous shot as Iron Man rises again with overcharged repulsors and renewed power, energy crackling around his hands, scorched armor still heroic and imposing, camera circling upward in a triumphant superhero reveal.",
+      "continue_from_previous": true
+    },
+    {
+      "id": "scene-26",
+      "prompt": "Continue from the previous shot as Iron Man tears through a wave of drones with rapid repulsor blasts and missile counterfire, molten debris raining down, blue energy and orange sparks colliding across the factory, climactic combat spectacle.",
+      "continue_from_previous": true
+    },
+    {
+      "id": "scene-27",
+      "prompt": "Continue from the previous shot as the command drone triggers a core meltdown, alarms flooding the plant in red light while reactor columns shake and vent energy, Iron Man racing toward the central tower through collapsing machinery and smoke.",
+      "continue_from_previous": true
+    },
+    {
+      "id": "scene-28",
+      "prompt": "Continue from the previous shot as Iron Man rips open the reactor shielding and redirects the overload upward, a massive blue-white energy column blasting through the roof into the storm clouds, epic high-contrast lighting and apocalyptic scale.",
+      "continue_from_previous": true
+    },
+    {
+      "id": "scene-29",
+      "prompt": "Continue from the previous shot as the plant collapses inward behind Iron Man, shockwaves rippling through smoke and debris while he escapes into the early morning sky, battered armor glowing against the rising sun, victorious action finale.",
+      "continue_from_previous": true
+    },
+    {
+      "id": "scene-30",
+      "prompt": "Continue from the previous shot as Iron Man hovers above the quiet sunrise skyline, city bathed in gold and blue light after the storm, scratched armor reflecting the dawn, calm heroic ending with a slow cinematic pullback and emotional resolution.",
+      "continue_from_previous": true
+    }
+  ]
+}
