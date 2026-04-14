@@ -1,0 +1,24 @@
+{
+  "movie_title": "Iron Man Night Flight",
+  "default_size": "1280*704",
+  "default_seed": 9001,
+  "default_frame_num": 121,
+  "use_prompt_extend": false,
+  "scenes": [
+    {
+      "id": "scene-01",
+      "prompt": "Iron Man stands on the edge of a skyscraper at dusk overlooking Manhattan, red and gold armor reflecting neon city lights, arc reactor glowing bright blue through drifting rain, cinematic superhero framing, realistic metallic textures, dramatic wind, high-end blockbuster look.",
+      "continue_from_previous": false
+    },
+    {
+      "id": "scene-02",
+      "prompt": "Continue from the previous shot as Iron Man launches into the night sky, repulsors blazing beneath his hands and feet, camera tracking beside him as he accelerates between glass towers, sparks and vapor trails streaking behind the armor, dynamic cinematic motion, high-detail Marvel-style action scene.",
+      "continue_from_previous": true
+    },
+    {
+      "id": "scene-03",
+      "prompt": "Continue from the previous shot as Iron Man hovers above the river and fires a bright repulsor blast toward a distant drone threat, reflections shimmering on the dark water, intense blue-white energy, red and gold armor illuminated by the blast, epic heroic finish, photoreal cinematic lighting.",
+      "continue_from_previous": true
+    }
+  ]
+}
