@@ -90,6 +90,7 @@ python -m pip install opencv-python
 python -m pip install einops
 python -m pip install decord
 python -m pip install librosa
+python -m pip install peft
 "$PROJECT_ROOT/scripts/download_ti2v_model_via_curl.sh"
 
 if [[ -n "$PI_ACCOUNT" ]]; then
