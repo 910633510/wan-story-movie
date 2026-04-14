@@ -17,6 +17,7 @@ This is a practical open-source approximation of "extend this video" behavior, b
 - `config/story.example.json`: example multi-scene story manifest
 - `scripts/download_wan22.sh`: clones Wan2.2, creates a venv, installs dependencies, downloads the model
 - `scripts/download_ti2v_model_via_curl.sh`: downloads the TI2V model directly with resumable `curl`
+- `scripts/bootstrap_uconn_hpc.sh`: bootstraps a Python env on HPC, installs Wan deps, downloads the model, and can submit the job
 - `scripts/story_to_movie.py`: runs a story scene-by-scene and chains clips using the last frame
 - `scripts/run_story_movie.sh`: thin wrapper around the story runner
 - `slurm/run_story_movie.slurm`: sample SLURM job for generation
@@ -181,6 +182,22 @@ Useful status commands:
 ```bash
 squeue -u your_netid
 tail -f ~/wan-story-movie/logs/wan-story-<jobid>.out
+```
+
+### One-line bootstrap
+
+If you just want one command to paste after logging into HPC:
+
+If your group requires a PI account:
+
+```bash
+bash -lc 'if [ -d "$HOME/wan-story-movie/.git" ]; then git -C "$HOME/wan-story-movie" pull; else git clone git@github.com:910633510/wan-story-movie.git "$HOME/wan-story-movie"; fi; cd "$HOME/wan-story-movie"; PI_ACCOUNT=YOUR_PI_ACCOUNT ./scripts/bootstrap_uconn_hpc.sh --submit'
+```
+
+If your group does not require an account line:
+
+```bash
+bash -lc 'if [ -d "$HOME/wan-story-movie/.git" ]; then git -C "$HOME/wan-story-movie" pull; else git clone git@github.com:910633510/wan-story-movie.git "$HOME/wan-story-movie"; fi; cd "$HOME/wan-story-movie"; ./scripts/bootstrap_uconn_hpc.sh --submit'
 ```
 
 ## Sources
