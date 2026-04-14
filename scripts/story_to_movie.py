@@ -6,6 +6,8 @@ import json
 import shutil
 import subprocess
 import sys
+import time
+from datetime import datetime
 from pathlib import Path
 from typing import Any
 
@@ -77,6 +79,22 @@ def load_story(path: Path) -> dict[str, Any]:
     if "scenes" not in data or not isinstance(data["scenes"], list) or not data["scenes"]:
         raise ValueError(f"{path} must contain a non-empty 'scenes' list")
     return data
+
+
+def log_progress(message: str) -> None:
+    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    print(f"[{timestamp}] {message}", flush=True)
+
+
+def format_duration(seconds: float) -> str:
+    total = max(0, int(round(seconds)))
+    hours, rem = divmod(total, 3600)
+    minutes, secs = divmod(rem, 60)
+    if hours:
+        return f"{hours}h {minutes}m {secs}s"
+    if minutes:
+        return f"{minutes}m {secs}s"
+    return f"{secs}s"
 
 
 def ensure_paths(args: argparse.Namespace) -> None:
@@ -223,6 +241,9 @@ def main() -> int:
     args = parse_args()
     story = load_story(args.story)
     ensure_paths(args)
+    total_scenes = len(story["scenes"])
+    run_started_at = time.monotonic()
+    completed_scene_durations: list[float] = []
 
     clips: list[Path] = []
     manifest: dict[str, Any] = {
@@ -239,6 +260,7 @@ def main() -> int:
         scene_id = scene.get("id", f"scene-{index:02d}")
         output_video = args.output_dir / f"{index:02d}_{scene_id}.mp4"
         input_image: Path | None = None
+        scene_started_at = time.monotonic()
 
         if previous_clip is not None and bool(scene.get("continue_from_previous", False)):
             input_image = args.output_dir / "frames" / f"{index:02d}_{scene_id}_seed.png"
@@ -247,11 +269,25 @@ def main() -> int:
             input_image = Path(scene["image"]).expanduser().resolve()
 
         if args.resume and output_video.exists():
-            print(f"Skipping existing clip: {output_video}")
+            log_progress(f"Skipping scene {index}/{total_scenes}: {scene_id} (already exists)")
         else:
             cmd = build_command(args, story, scene, index, output_video, input_image)
-            print("Running:", " ".join(cmd))
+            log_progress(f"Starting scene {index}/{total_scenes}: {scene_id}")
+            log_progress(f"Command: {' '.join(cmd)}")
             subprocess.run(cmd, cwd=args.wan_repo, check=True)
+            scene_elapsed = time.monotonic() - scene_started_at
+            completed_scene_durations.append(scene_elapsed)
+            avg_scene_duration = sum(completed_scene_durations) / len(completed_scene_durations)
+            scenes_remaining = total_scenes - index
+            eta_seconds = scenes_remaining * avg_scene_duration
+            log_progress(
+                f"Finished scene {index}/{total_scenes}: {scene_id} in {format_duration(scene_elapsed)}"
+            )
+            if scenes_remaining:
+                log_progress(
+                    f"Estimated remaining time: {format_duration(eta_seconds)} "
+                    f"(avg {format_duration(avg_scene_duration)} per completed scene)"
+                )
 
         clips.append(output_video)
         previous_clip = output_video
@@ -267,12 +303,15 @@ def main() -> int:
 
     manifest_path = args.output_dir / "manifest.json"
     manifest_path.write_text(json.dumps(manifest, indent=2), encoding="utf-8")
-    print(f"Wrote manifest: {manifest_path}")
+    log_progress(f"Wrote manifest: {manifest_path}")
 
     if args.concat and clips:
         movie_path = args.output_dir / "movie.mp4"
         if concat_videos(clips, movie_path):
-            print(f"Wrote concatenated movie: {movie_path}")
+            log_progress(f"Wrote concatenated movie: {movie_path}")
+
+    total_elapsed = time.monotonic() - run_started_at
+    log_progress(f"Run complete in {format_duration(total_elapsed)}")
 
     return 0
 
